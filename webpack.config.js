@@ -81,12 +81,19 @@ if(isDev){
     hot: true,
     open: true,
     contentBase: path.join(__dirname, "dist"),
-    compress: true
+    compress: true,
+    before(app){
+      console.log("------- before ------");
+      console.log(app)
+    },
+    after (app) {
+      console.log('------- after ------')
+      console.log(app)
+    }
   };
 
    config.plugins.push(
      new webpack.HotModuleReplacementPlugin(),
-
      new webpack.NoEmitOnErrorsPlugin()
    );
 }
