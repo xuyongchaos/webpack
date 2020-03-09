@@ -98,7 +98,11 @@ const config = {
           return content
         }
       }
-    ])
+    ]),
+    // 在每个chunk文件的头部添加一行注释
+    new webpack.BannerPlugin({
+      banner: 'webpack.BannerPlugin 插件添加的内容'
+    })
   ],
   optimization: {
     splitChunks: {
