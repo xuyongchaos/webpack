@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const chalk = require('chalk')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const path = require('path')
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -12,9 +13,12 @@ console.log(`当前运行环境:${chalk.green(process.env.NODE_ENV)}`)
 const config = {
   mode: process.env.NODE_ENV,
   context: path.join(__dirname, 'src'),
-  entry: './main.js',
+  entry: {
+    main: './main.js',
+    vendor: ['vue', 'vue-router']
+  },
   output: {
-    path: path.join(__dirname, 'src'),
+    path: path.join(__dirname, 'dist'),
     filename: '[name].js'
   },
   resolve: {
@@ -23,6 +27,10 @@ const config = {
       components: path.join(__dirname, 'src/components'),
       views: path.join(__dirname, 'src/views')
     },
+    // 指定从哪里查找第三方模块
+    modules: ['./node_modules'],
+    // 所有导入语句强制性都得带上文件后缀
+    enforceExtension: false,
     extensions: ['.js', '.vue', '.json']
   },
   watchOptions: {
@@ -78,8 +86,27 @@ const config = {
         collapseWhitespace: true, // 删除空白符与换行符
         minifyCSS: true // 压缩内联css
       }
-    })
-  ]
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: '../mainfest.json',
+        to: 'mainfest.json',
+        transform(rawStr) {
+          let content = JSON.parse(rawStr)
+          content.version = 'xyc'
+          content = JSON.stringify(content, null, 2)
+          return content
+        }
+      }
+    ])
+  ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      minSize: 30000,
+      minChunks: 3
+    }
+  }
 }
 
 if (isDev) {
