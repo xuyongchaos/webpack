@@ -12,13 +12,20 @@ console.log(`当前运行环境:${chalk.green(process.env.NODE_ENV)}`);
 const config = {
   mode: process.env.NODE_ENV,
   context: __dirname + "/src",
-  entry: './main.js',
+  entry: "./main.js",
   output: {
     path: __dirname + "/dist",
     filename: "[name].js"
   },
   resolve: {
     extensions: [".js", ".vue", ".json"]
+  },
+  watchOptions: {
+    // 类似于节流， 500ms内的更改内造成的build将会合并成一次
+    aggregateTimeout: 500,
+    // 通过传递 true 开启 polling，或者指定毫秒为单位进行轮询。
+    poll: 1000,
+    ignored: /node_modules|dist/
   },
   module: {
     rules: [
@@ -73,7 +80,7 @@ const config = {
 if(isDev){
   config.devtool = '#cheap-module-eval-source-map'
   config.devServer = {
-    port: 9527,
+    port: 9528,
     host: "127.0.0.1",
     overlay: {
       errors: true
@@ -83,12 +90,16 @@ if(isDev){
     contentBase: path.join(__dirname, "dist"),
     compress: true,
     before(app){
-      console.log("------- before ------");
-      console.log(app)
+      console.log(
+        "------- before, 在服务内部的所有其他中间件之前， 提供执行自定义中间件的功能。-------"
+      );
+      // console.log(app)
     },
     after (app) {
-      console.log('------- after ------')
-      console.log(app)
+      console.log(
+        "------- after ,在服务内部的所有其他中间件之后， 提供执行自定义中间件的功能。-------"
+      );
+      // console.log(app)
     }
   };
 
