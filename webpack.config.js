@@ -1,24 +1,24 @@
-const webpack = require("webpack");
-const { VueLoaderPlugin } = require("vue-loader");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const chalk = require("chalk");
-const htmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require('webpack')
+const { VueLoaderPlugin } = require('vue-loader')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const chalk = require('chalk')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const isDev = process.env.NODE_ENV === 'development'
 
-console.log(`当前运行环境:${chalk.green(process.env.NODE_ENV)}`);
+console.log(`当前运行环境:${chalk.green(process.env.NODE_ENV)}`)
 
 const config = {
   mode: process.env.NODE_ENV,
-  context: __dirname + "/src",
-  entry: "./main.js",
+  context: path.join(__dirname, 'src'),
+  entry: './main.js',
   output: {
-    path: __dirname + "/dist",
-    filename: "[name].js"
+    path: path.join(__dirname, 'src'),
+    filename: '[name].js'
   },
   resolve: {
-    extensions: [".js", ".vue", ".json"]
+    extensions: ['.js', '.vue', '.json']
   },
   watchOptions: {
     // 类似于节流， 500ms内的更改内造成的build将会合并成一次
@@ -31,28 +31,28 @@ const config = {
     rules: [
       {
         test: /\.vue$/,
-        loaders: ["vue-loader"]
+        loaders: ['vue-loader']
       },
       {
         test: /\.js$/,
-        loader: "babel-loader",
+        loader: ['babel-loader', 'eslint-loader'],
         exclude: /node_modules/
       },
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        loaders: [MiniCssExtractPlugin.loader, "css-loader"]
+        loaders: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       {
         test: /\.less$/,
         exclude: /node_modules/,
-        loaders: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"]
+        loaders: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
       },
       {
         test: /\.(png|jpg|gif|svg|ico|ttf|woff)$/,
-        loader: "file-loader",
+        loader: 'file-loader',
         options: {
-          name: "[name].[ext]?emitFile=false"
+          name: '[name].[ext]?emitFile=false'
         }
       }
     ]
@@ -60,13 +60,13 @@ const config = {
   plugins: [
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
-      filename: "[name].css"
+      filename: '[name].css'
     }),
     new CleanWebpackPlugin(),
-    new htmlWebpackPlugin({
-      title: "webpack配置例子",
-      filename: "index.html",
-      template: "index.html",
+    new HtmlWebpackPlugin({
+      title: 'webpack配置例子',
+      filename: 'index.html',
+      template: 'index.html',
       minify: {
         // 压缩HTML文件
         removeComments: true, // 移除HTML中的注释
@@ -75,38 +75,38 @@ const config = {
       }
     })
   ]
-};
+}
 
-if(isDev){
+if (isDev) {
   config.devtool = '#cheap-module-eval-source-map'
   config.devServer = {
     port: 9528,
-    host: "127.0.0.1",
+    host: '127.0.0.1',
     overlay: {
       errors: true
     },
     hot: true,
     open: true,
-    contentBase: path.join(__dirname, "dist"),
+    contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    before(app){
+    before(app) {
       console.log(
-        "------- before, 在服务内部的所有其他中间件之前， 提供执行自定义中间件的功能。-------"
-      );
+        '------- before, 在服务内部的所有其他中间件之前， 提供执行自定义中间件的功能。-------'
+      )
       // console.log(app)
     },
-    after (app) {
+    after(app) {
       console.log(
-        "------- after ,在服务内部的所有其他中间件之后， 提供执行自定义中间件的功能。-------"
-      );
+        '------- after ,在服务内部的所有其他中间件之后， 提供执行自定义中间件的功能。-------'
+      )
       // console.log(app)
     }
-  };
+  }
 
-   config.plugins.push(
-     new webpack.HotModuleReplacementPlugin(),
-     new webpack.NoEmitOnErrorsPlugin()
-   );
+  config.plugins.push(
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+  )
 }
 
-module.exports = config;
+module.exports = config
