@@ -18,6 +18,11 @@ const config = {
     filename: '[name].js'
   },
   resolve: {
+    alias: {
+      '@': path.join(__dirname, 'src'),
+      components: path.join(__dirname, 'src/components'),
+      views: path.join(__dirname, 'src/views')
+    },
     extensions: ['.js', '.vue', '.json']
   },
   watchOptions: {

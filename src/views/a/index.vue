@@ -1,10 +1,19 @@
 <template>
-    <div class="container">a</div>
+  <div class="container">
+    a
+    <p>{{ mock }}</p>
+  </div>
 </template>
 
 <script>
-export default{
-  created () {
+import mock from '../data/a.json'
+export default {
+  data() {
+    return {
+      mock
+    }
+  },
+  created() {
     console.log('------ page a ------')
   }
 }
