@@ -36,7 +36,7 @@ const config = {
   },
   watchOptions: {
     // 类似于节流， 500ms内的更改内造成的build将会合并成一次
-    aggregateTimeout: 500,
+    aggregateTimeout: 300,
     // 通过传递 true 开启 polling，或者指定毫秒为单位进行轮询。
     poll: 1000,
     ignored: /node_modules|dist/
