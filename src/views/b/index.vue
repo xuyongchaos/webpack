@@ -1,10 +1,12 @@
 <template>
-  <div class="container">b</div>
+  <div class="container">
+    b
+  </div>
 </template>
 
 <script>
 export default {
-  created () {
+  created() {
     console.log('------ page a ------')
   }
 }
