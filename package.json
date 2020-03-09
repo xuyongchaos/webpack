@@ -7,7 +7,8 @@
     "build": "cross-env NODE_ENV=production webpack --hide-modules",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hide-modules --config webpack.config.js",
     "dev:bonjour": "cross-env NODE_ENV=development webpack-dev-server --bonjour --hide-modules --config webpack.config.js",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "lintstyle": "npx stylelint **/*.{vue,less,scss} --fix"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
@@ -28,6 +29,9 @@
     "less-loader": "^5.0.0",
     "lint-staged": "^10.0.8",
     "mini-css-extract-plugin": "^0.9.0",
+    "stylelint": "^13.2.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-webpack-plugin": "^1.2.3",
     "vue-loader": "^15.9.0",
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.42.0",

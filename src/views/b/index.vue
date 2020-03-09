@@ -14,7 +14,8 @@ export default {
 
 <style lnag="less" scoped>
 @import url('./style.less');
-.container{
+
+.container {
   background: black;
   color: white;
 }

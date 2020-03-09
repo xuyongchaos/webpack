@@ -5,6 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const chalk = require('chalk')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const StylelintPlugin = require('stylelint-webpack-plugin')
 const path = require('path')
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -102,6 +103,10 @@ const config = {
     // 在每个chunk文件的头部添加一行注释
     new webpack.BannerPlugin({
       banner: 'webpack.BannerPlugin 插件添加的内容'
+    }),
+    new StylelintPlugin({
+      files: '**/*.{vue,less}',
+      fix: true
     })
   ],
   optimization: {
@@ -122,7 +127,7 @@ if (isDev) {
       errors: true
     },
     hot: true,
-    open: true,
+    open: false,
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     before(app) {

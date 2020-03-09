@@ -21,9 +21,9 @@ export default {
 
 <style lang="less" scoped>
 @import url('./style.less');
-.container{
+
+.container {
   background-color: aqua;
   color: red;
-
 }
 </style>
