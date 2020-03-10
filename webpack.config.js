@@ -130,6 +130,10 @@ const config = {
     new BasicPlugin({
       name: 'BasicPlugin',
       desction: '自定义插件-1'
+    }),
+    new webpack.DefinePlugin({
+      DEV: "'dev'",
+      EXPRESSION: "'注入的一个运行时全局变量'"
     })
   ]
   // optimization: {

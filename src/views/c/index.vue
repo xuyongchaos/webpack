@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     cccccccccc
+    <p>{{ expression }}</p>
     <p>{{ mock }}</p>
   </div>
 </template>
@@ -10,7 +11,9 @@ import mock from '../data/a.json'
 export default {
   data() {
     return {
-      mock
+      mock,
+      // eslint-disable-next-line no-undef
+      expression: EXPRESSION
     }
   },
   created() {
