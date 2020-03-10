@@ -9,14 +9,17 @@ const StylelintPlugin = require('stylelint-webpack-plugin')
 const path = require('path')
 const isDev = process.env.NODE_ENV === 'development'
 
+const BasicPlugin = require('./plugins/BasicPlugin/index.js')
+
 console.log(`当前运行环境:${chalk.green(process.env.NODE_ENV)}`)
 
 const config = {
   mode: process.env.NODE_ENV,
   context: path.join(__dirname, 'src'),
   entry: {
-    main: './main.js',
-    vendor: ['vue', 'vue-router']
+    'js/main': './main.js',
+    'js/vendor': ['vue', 'vue-router']
+    // c: './views/c/c.js'
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -74,7 +77,7 @@ const config = {
   plugins: [
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
-      filename: '[name].css'
+      filename: 'css/[name].css'
     }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -107,6 +110,10 @@ const config = {
     new StylelintPlugin({
       files: '**/*.{vue,less}',
       fix: true
+    }),
+    new BasicPlugin({
+      name: 'BasicPlugin',
+      desction: '自定义插件-1'
     })
   ],
   optimization: {
