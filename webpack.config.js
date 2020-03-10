@@ -18,8 +18,8 @@ const config = {
   context: path.join(__dirname, 'src'),
   entry: {
     'js/main': './main.js',
-    'js/vendor': ['vue', 'vue-router']
-    // c: './views/c/c.js'
+    'js/vendor': ['vue', 'vue-router'],
+    c: './views/c/c.js'
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -84,6 +84,19 @@ const config = {
       title: 'webpack配置例子',
       filename: 'index.html',
       template: 'index.html',
+      chunks: ['js/main', 'js/vendor'],
+      minify: {
+        // 压缩HTML文件
+        removeComments: true, // 移除HTML中的注释
+        collapseWhitespace: true, // 删除空白符与换行符
+        minifyCSS: true // 压缩内联css
+      }
+    }),
+    new HtmlWebpackPlugin({
+      title: 'webpack配置例子',
+      filename: 'c.html',
+      template: 'index.html',
+      chunks: ['c'],
       minify: {
         // 压缩HTML文件
         removeComments: true, // 移除HTML中的注释
