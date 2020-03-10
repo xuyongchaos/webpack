@@ -5,6 +5,7 @@ const stylelint = require('stylelint')
 const path = require('path')
 const chalk = require('chalk')
 
+const log = console.log
 try {
   var ret = execSync('git diff --staged --diff-filter=ACMR --name-only', {
     encoding: 'utf-8'
@@ -23,23 +24,25 @@ try {
       if (ret.errored) {
         const filterRets = ret.results.filter(x => x.errored)
         filterRets.forEach(x => {
-          console.log(`source: ${x.source}`)
+          log(chalk.white('\n----------------------------------'))
+          log(chalk.green(`source: ${x.source}`))
           if (x.warnings.length > 0) {
             x.warnings.forEach(warning => {
-              console.log(chalk.blue(`warnings:${JSON.stringify(warning)}`))
+              log(chalk.yellow(`warnings:${JSON.stringify(warning)}`))
             })
           }
           if (x.parseErrors.length > 0) {
             x.parseErrors.forEach(error => {
-              console.log(chalk.red(`parseErrors:${JSON.stringify(error)}`))
+              log(chalk.red(`parseErrors:${JSON.stringify(error)}`))
             })
           }
         })
-        process.exit(-1)
+        process.exit(128)
       }
     })
     .catch(err => {
       throw new Error(err)
+      process.exit(128);
     })
 } catch (err) {
   throw new Error(err)
