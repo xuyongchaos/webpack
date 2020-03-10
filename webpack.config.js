@@ -18,7 +18,6 @@ const config = {
   context: path.join(__dirname, 'src'),
   entry: {
     'js/main': './main.js',
-    'js/vendor': ['vue', 'vue-router'],
     c: './views/c/c.js'
   },
   output: {
@@ -38,7 +37,7 @@ const config = {
     extensions: ['.js', '.vue', '.json']
   },
   // 使用webpack-dev-server的时候默认打开
-  watch: true,
+  watch: false,
   watchOptions: {
     // 类似于节流， 500ms内的更改内造成的build将会合并成一次
     aggregateTimeout: 500,
@@ -86,7 +85,7 @@ const config = {
       title: 'webpack配置例子',
       filename: 'index.html',
       template: 'index.html',
-      chunks: ['js/main', 'js/vendor'],
+      chunks: ['js/main'],
       minify: {
         // 压缩HTML文件
         removeComments: true, // 移除HTML中的注释
@@ -98,13 +97,7 @@ const config = {
       title: 'webpack配置例子',
       filename: 'c.html',
       template: 'index.html',
-      chunks: ['c'],
-      minify: {
-        // 压缩HTML文件
-        removeComments: true, // 移除HTML中的注释
-        collapseWhitespace: true, // 删除空白符与换行符
-        minifyCSS: true // 压缩内联css
-      }
+      chunks: ['c']
     }),
     new CopyWebpackPlugin([
       {
@@ -130,14 +123,14 @@ const config = {
       name: 'BasicPlugin',
       desction: '自定义插件-1'
     })
-  ],
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      minSize: 30000,
-      minChunks: 3
-    }
-  }
+  ]
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: 'all',
+  //     minSize: 30000,
+  //     minChunks: 3
+  //   }
+  // }
 }
 
 if (isDev) {
@@ -152,6 +145,19 @@ if (isDev) {
     open: false,
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000/',
+        ws: true,
+        changeOrigin: true,
+        bypass: function(req, res, proxyOptions) {
+          // console.log(req)
+        },
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    },
     before(app) {
       console.log(
         '------- before, 在服务内部的所有其他中间件之前， 提供执行自定义中间件的功能。-------'
