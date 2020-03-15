@@ -13,4 +13,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.container {
+  a {
+    text-align: center;
+  }
+}
 </style>

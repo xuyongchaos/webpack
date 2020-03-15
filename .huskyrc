@@ -1,5 +1,5 @@
 {
   "hooks": {
-    "pre-commit": "node ./scripts/lintstyle.js && eslint . --fix && git add -A"
+    "pre-commit": "node ./scripts/lintstyle/lint.js && eslint . --fix && git add -A"
   }
 }

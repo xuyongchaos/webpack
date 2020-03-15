@@ -9,7 +9,7 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hide-modules --config webpack.config.js",
     "dev:bonjour": "cross-env NODE_ENV=development webpack-dev-server --bonjour --hide-modules --config webpack.config.js",
     "precommit": "lint-staged",
-    "lintstyle": "node ./scripts/lintstyle.js"
+    "lintstyle": "node ./scripts/lintstyle/lint.js && node ./scripts/lintstyle/add.js"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",

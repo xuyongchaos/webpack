@@ -2,6 +2,7 @@
 ```
 npm run dev
 npm run build
+npm run lintstyle 将会格式化暂存区内的less,vue文件中less
 ```
 
 ### 说明
