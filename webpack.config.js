@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const chalk = require('chalk')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const StylelintPlugin = require('stylelint-webpack-plugin')
+// const StylelintPlugin = require('stylelint-webpack-plugin')
 const path = require('path')
 
 const BasicPlugin = require('./plugins/BasicPlugin/index.js')
@@ -92,10 +92,10 @@ const config = {
     new webpack.BannerPlugin({
       banner: 'webpack.BannerPlugin 插件添加的内容'
     }),
-    new StylelintPlugin({
-      files: '**/*.{vue,less}',
-      fix: true
-    }),
+    // new StylelintPlugin({
+    //   files: '**/*.{vue,less}',
+    //   fix: true
+    // }),
     new BasicPlugin({
       name: 'BasicPlugin',
       desction: '自定义插件-1'

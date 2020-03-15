@@ -5,6 +5,27 @@ const baseConfig = require('./webpack.config.js')
 module.exports = wepackMerge(baseConfig, {
   mode: 'production',
   devtool: '#cheap-module-eval-source-map',
+  optimization: {
+    splitChunks: {
+      // 分割代码块
+      cacheGroups: {
+        // 缓存组
+        common: {
+          // 公共模块
+          chunks: 'initial', // 入口开始
+          minSize: 0,
+          minChunks: 2
+        },
+        vendor: {
+          priority: 1,
+          test: /node_modules/,
+          chunks: 'initial',
+          minSize: 0,
+          minChunks: 2
+        }
+      }
+    }
+  },
   module: {
     rules: [
       {
