@@ -1,0 +1,11 @@
+{ mode: 'production',
+  context: '/Users/yongchao9/Learn/webpack-config/src',
+  module: { rules: [ [Object], [Object], [Object], [Object] ] },
+  plugins:
+   [ VueLoaderPlugin {},
+     MiniCssExtractPlugin { options: [Object] },
+     HtmlWebpackPlugin { options: [Object] } ],
+  entry:
+   { main: [ './main.js' ],
+     c: [ './views/c/c.js' ],
+     vendor: [ 'vue', 'vue-router' ] } }

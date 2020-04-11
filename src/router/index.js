@@ -13,6 +13,10 @@ export default new VueRouter({
     {
       path: '/b',
       component: () => import('../views/b/index.vue')
+    },
+    {
+      path: '/mark',
+      component: () => import('../views/marked/index.js')
     }
   ]
 })
